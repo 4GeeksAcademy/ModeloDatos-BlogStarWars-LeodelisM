@@ -99,13 +99,13 @@ class Favorito(db.Model):
     __tablename__ = 'favorito'
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    usuario_id: Mapped[int] = mapped_column(db.ForeignKey('usuario.id'))
+    usuario_id: Mapped[int] = mapped_column(db.ForeignKey('usuario.id'), nullable=True, unique=True)
     personaje_id: Mapped[int] = mapped_column(
-        db.ForeignKey('personaje.id'), nullable=True)
+        db.ForeignKey('personaje.id'), nullable=True, unique=True)
     planeta_id: Mapped[int] = mapped_column(db.ForeignKey(
-        'planeta.id'), nullable=True)  # puede ser nula
+        'planeta.id'), nullable=True, unique=True)  # puede ser nula
 
-    def serializa(self):
+    def serialize(self):
         return {
             "id": self.id,
             "usuario_id": self.usuario_id,
